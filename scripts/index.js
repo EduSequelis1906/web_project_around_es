@@ -214,16 +214,16 @@ initialCards.forEach(function (card) {
 function showInputError(questionary, element, errorMessage) {
   const errorElement = questionary.querySelector(`.${element.id}-input-error`);
   console.log(errorElement);
-  element.classList.add("form__input_type_error");
+  element.classList.add("popup__input_type_error");
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("form__input-error_active");
+  errorElement.classList.add("popup__input-error_active");
 }
 
 function hideInputError(questionary, element) {
   const errorElement = questionary.querySelector(`.${element.id}-input-error`);
-  element.classList.remove("form__input_type_error");
+  element.classList.remove("popup__input_type_error");
   errorElement.textContent = "";
-  errorElement.classList.remove("form__input-error_active");
+  errorElement.classList.remove("popup__input-error_active");
 }
 
 inputs.forEach((entry) => {
