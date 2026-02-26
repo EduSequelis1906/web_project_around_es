@@ -25,8 +25,11 @@ let initialCards = [
   },
 ];
 
+let formValid = true;
+let cardformValid = true;
 const modalProfileEditBtn = document.querySelector(".profile__edit-button");
 const modalProfileForm = document.querySelector("#edit-popup");
+const modalPopUpEditContent = modalProfileForm.querySelector(".popup__content");
 const modalClosePopUpBtn = modalProfileForm.querySelector(".popup__close");
 const modalTypeName = modalProfileForm.querySelector(".popup__input_type_name");
 const modalTypeDescription = modalProfileForm.querySelector(
@@ -38,14 +41,27 @@ const modalTemplateCard = document
 const cardContainer = document.querySelector(".cards__list");
 const profileTitleText = document.querySelector(".profile__title");
 const profileDescriptionText = document.querySelector(".profile__description");
-
 const createNewCardBtn = document.querySelector(".profile__add-button");
 const newCardPopUp = document.querySelector("#new-card-popup");
+const modalPopUpNewCardContent = newCardPopUp.querySelector(".popup__content");
+const newCard = document.forms.popup__new;
+const cardForm = document.querySelector("#new-card-form");
+const cardInputs = cardForm.querySelectorAll(".popup__input");
+const cardFormSubmit = cardForm.querySelector(".popup__button");
 const closePopUpNewCard = newCardPopUp.querySelector(".popup__close");
 const submitPopUpNewCard = newCardPopUp.querySelector(".popup__button");
 const newCardTitle = document.querySelector(".popup__input_type_card-name");
 const newCardLink = document.querySelector(".popup__input_type_url");
 const imageZoom = document.querySelector("#image-popup");
+const imageZoomPopupContent = imageZoom.querySelector(".popup__content");
+const profileDisplay = document.querySelector(".profile__info");
+const formElement = document.querySelector("#edit-profile-form");
+const form = document.forms.popup__edit;
+const inputName = form.name;
+const inputDescription = form.description;
+const inputs = formElement.querySelectorAll(".popup__input");
+const formSubmit = formElement.querySelector(".popup__button");
+const formEditProfileSubmit = form.querySelector(".popup__button");
 
 createNewCardBtn.addEventListener("click", () => {
   openModal(newCardPopUp);
@@ -57,6 +73,21 @@ closePopUpNewCard.addEventListener("click", function () {
 
 newCardPopUp.addEventListener("submit", (evt) => {
   evt.preventDefault();
+  let cardformValid = true;
+  cardInputs.forEach(inp, () => {
+    if (!inp.validity.valid) {
+      showInputError(inp, inp.validationMessage);
+      cardformValid = false;
+    } else {
+      hideInputError(inp);
+      cardformValid = true;
+    }
+    toggleButtonState(cardInputs, cardFormSubmit);
+  });
+
+  if (!cardformValid) {
+    evt.preventDefault();
+  }
 
   handleCardFormSubmit(newCardTitle.value, newCardLink.value);
 
@@ -141,12 +172,9 @@ function renderCard(name, link, div) {
   div.prepend(newCard);
 }
 
-const profileDisplay = document.querySelector(".profile__info");
-let formElement = document.querySelector("#edit-profile-form");
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-
+  formValid = true;
   let nameInput = formElement.querySelector(".popup__input_type_name");
   let jobInput = formElement.querySelector(".popup__input_type_description");
 
@@ -160,6 +188,19 @@ function handleProfileFormSubmit(evt) {
 
   nameSet.textContent = name;
   jobSet.textContent = job;
+  inputs.forEach(inp, () => {
+    if (!inp.validity.valid) {
+      showInputError(inp, inp.validationMessage);
+      formValid = false;
+    } else {
+      hideInputError(inp);
+      formValid = true;
+    }
+    toggleButtonState(inputs, formEditProfileSubmit);
+  });
+  if (!formValid) {
+    evt.preventDefault();
+  }
 }
 
 formElement.addEventListener("submit", handleProfileFormSubmit);
@@ -168,4 +209,89 @@ initialCards.forEach(function (card) {
   const names = card.name;
   const links = card.link;
   renderCard(names, links, cardContainer);
+});
+
+function showInputError(questionary, element, errorMessage) {
+  const errorElement = questionary.querySelector(`.${element.id}-input-error`);
+  console.log(errorElement);
+  element.classList.add("form__input_type_error");
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("form__input-error_active");
+}
+
+function hideInputError(questionary, element) {
+  const errorElement = questionary.querySelector(`.${element.id}-input-error`);
+  element.classList.remove("form__input_type_error");
+  errorElement.textContent = "";
+  errorElement.classList.remove("form__input-error_active");
+}
+
+inputs.forEach((entry) => {
+  entry.addEventListener("input", () => {
+    if (!entry.validity.valid) {
+      showInputError(form, entry, entry.validationMessage);
+      formValid = false;
+    } else {
+      hideInputError(form, entry);
+      formValid = true;
+    }
+    toggleButtonState(inputs, formSubmit);
+  });
+});
+
+function hasInvalidInput(inputs) {
+  return Array.from(inputs).some(function (input) {
+    return !input.validity.valid;
+  });
+}
+
+function toggleButtonState(inputList, frmSubmit) {
+  if (hasInvalidInput(inputList)) {
+    frmSubmit.disabled = true;
+  } else {
+    frmSubmit.disabled = false;
+  }
+}
+
+toggleButtonState(inputs, formSubmit);
+
+console.log(cardInputs);
+
+cardInputs.forEach((entry) => {
+  entry.addEventListener("input", () => {
+    if (!entry.validity.valid) {
+      console.log(entry);
+      showInputError(newCard, entry, entry.validationMessage);
+      cardformValid = false;
+    } else {
+      hideInputError(newCard, entry);
+      cardformValid = true;
+    }
+    toggleButtonState(cardInputs, submitPopUpNewCard);
+  });
+});
+
+toggleButtonState(cardInputs, submitPopUpNewCard);
+
+document.addEventListener("mousedown", function (event) {
+  let isClickInsideNewCard = modalPopUpNewCardContent.contains(event.target);
+  let isClickInsideEditPro = modalPopUpEditContent.contains(event.target);
+  let isClickInsideZoom = imageZoomPopupContent.contains(event.target);
+  console.log(isClickInsideNewCard);
+  console.log(isClickInsideEditPro);
+  console.log(isClickInsideZoom);
+  if (!isClickInsideNewCard && !isClickInsideEditPro && !isClickInsideZoom) {
+    closeModal(newCardPopUp);
+    closeModal(modalProfileForm);
+    closeModal(imageZoom);
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  console.log(event.key === "Escape");
+  if (event.key === "Escape") {
+    closeModal(newCardPopUp);
+    closeModal(modalProfileForm);
+    closeModal(imageZoom);
+  }
 });
