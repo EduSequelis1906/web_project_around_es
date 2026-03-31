@@ -113,15 +113,15 @@
           <form class="popup__form" id="new-card-form" name="popup__new">
             <input
               class="popup__input popup__input_type_card-name"
-              name="place-name"
+              name="place_name"
               placeholder="Título"
               type="text"
               maxlength="30"
               minlength="2"
-              id="place-name"
+              id="place_name"
               required
             />
-            <span class="place-name-input-error popup__input-error"></span>
+            <span class="place_name-input-error popup__input-error"></span>
             <input
               class="popup__input popup__input_type_url"
               name="link"
@@ -151,7 +151,11 @@
     </div>
   </body>
   <script type="module" src="./scripts/index.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/utils.js"></script>
+  <script type="module" src="./scripts/components/FormValidator.js"></script>
+  <script type="module" src="./scripts/components/Card.js"></script>
+  <script type="module" src="./scripts/components/Popup.js"></script>
+  <script type="module" src="./scripts/components/PopupWithForm.js"></script>
+  <script type="module" src="./scripts/components/PopupWithImage.js"></script>
+  <script type="module" src="./scripts/components/Section.js"></script>
+  <script type="module" src="./scripts/components/UserInfo.js"></script>
 </html>
