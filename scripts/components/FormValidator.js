@@ -22,7 +22,8 @@ export default class FormValidator {
   }
 
   _showInputError(element, errorMessage) {
-    const errorElement = this._form.querySelector(`.${element.id}-input-error`);
+    //const errorElement = this._form.querySelector(`.${element.id}-input-error`);
+    const errorElement = element.nextElementSibling;
     console.log(errorElement);
     element.classList.add("popup__input_type_error");
     errorElement.textContent = errorMessage;
@@ -30,7 +31,8 @@ export default class FormValidator {
   }
 
   _hideInputError(element) {
-    const errorElement = this._form.querySelector(`.${element.id}-input-error`);
+    //const errorElement = this._form.querySelector(`.${element.id}-input-error`);
+    const errorElement = element.nextElementSibling;
     element.classList.remove("popup__input_type_error");
     errorElement.textContent = "";
     errorElement.classList.remove("popup__input-error_active");
