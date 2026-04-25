@@ -18,7 +18,12 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img class="profile__image" src="./images/avatar.jpg" alt="Avatar" />
+          <div class="profile__edit-container">
+          <img class="profile__image" src="./images/avatar.jpg" alt="Avatar" /></img>
+          <div class="profile__overlay">
+            <img class="profile__edit-image" src="./images/vector.svg" alt="pen"></img>
+          </div>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -97,7 +102,8 @@
             />
             <span class="description-input-error popup__input-error"></span>
             <button class="button popup__button" type="submit" disabled>
-              Guardar
+              <p class="popup__button-up">Guardar</p>
+              <p class="popup__button-down">Guardando...</p>
             </button>
           </form>
         </div>
@@ -134,7 +140,8 @@
             />
             <span class="link-input-error popup__input-error"></span>
             <button class="button popup__button" type="submit" disabled>
-              Crear
+              <p class="popup__button-up">Crear</p>
+              <p class="popup__button-down">Guardando...</p>
             </button>
           </form>
         </div>
@@ -150,6 +157,56 @@
           <p class="popup__caption"></p>
         </div>
       </div>
+      <div class="popup" id="edit-popup-image">
+        <div class="popup__content popup__content-editImage">
+          <button
+            aria-label="Cerrar ventana emergente"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">Cambiar foto de perfil</h3>
+          <form
+            class="popup__form"
+            name="popup__edit"
+            id="edit-profile-image"
+            novalidate
+          >
+            <input
+              class="popup__input popup__input_type_url"
+              name="link"
+              placeholder="Enlace a la imagen de perfil"
+              type="url"
+              id="link"
+              required
+            />
+            <span class="link-input-error popup__input-error"></span>
+            <button class="button popup__button" type="submit" disabled>
+              <p class="popup__button-up">Guardar</p>
+              <p class="popup__button-down">Guardando...</p>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="popup" id="confirm-popup-image">
+        <div class="popup__content popup__content-confirm">
+          <button
+            aria-label="Cerrar ventana emergente"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">¿Estás seguro/a?</h3>
+          <form
+            class="popup__form"
+            name="popup__edit"
+            id="edit-profile-image"
+            novalidate
+          >
+            <button class="button popup__button popup__button-confirm" type="submit">
+              Sí
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
   <script type="module" src="./scripts/index.js"></script>
@@ -160,4 +217,5 @@
   <script type="module" src="./scripts/components/PopupWithImage.js"></script>
   <script type="module" src="./scripts/components/Section.js"></script>
   <script type="module" src="./scripts/components/UserInfo.js"></script>
+  <script type="module" src="./scripts/components/PopupWithConfirmation.js"></script>
 </html>

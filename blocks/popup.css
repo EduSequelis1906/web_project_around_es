@@ -26,6 +26,10 @@
   margin-top: 48px;
 }
 
+.popup__button-confirm {
+  margin-top: 38px;
+}
+
 .popup__button:hover {
   background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
@@ -58,6 +62,14 @@
   position: relative;
   box-sizing: border-box;
   padding: 34px 36px;
+}
+
+.popup__content-confirm {
+  min-height: 181px;
+}
+
+.popup__content-editImage {
+  min-height: 272px;
 }
 
 .popup__form {
@@ -182,4 +194,12 @@
   background-color: gray;
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+/* ====== loading animation ====== */
+.popup__button-up {
+  display: block;
+}
+.popup__button-down {
+  display: none;
 }

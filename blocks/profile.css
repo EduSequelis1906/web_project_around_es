@@ -37,13 +37,35 @@
   max-width: 373px;
 }
 
+.profile__edit-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-right: 29px;
+}
 .profile__image {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
   background-position: center;
-  margin-right: 29px;
+}
+.profile__edit-container:hover .profile__overlay {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.profile__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
 }
 
 .profile__add-button {

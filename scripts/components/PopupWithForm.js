@@ -4,6 +4,11 @@ export default class PopupWithForm extends Popup {
   constructor(pupupSelector, submitCallBack) {
     super(pupupSelector);
     this._formSelector = this._popup.querySelector(".popup__form");
+    this._formSbmBtn = this._formSelector.querySelector(".popup__button");
+    this._annimationUP = this._formSbmBtn.querySelector(".popup__button-up");
+    this._annimationDown = this._formSbmBtn.querySelector(
+      ".popup__button-down",
+    );
     this._callback = submitCallBack;
   }
   _getInputValues() {
@@ -25,5 +30,14 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._formSelector.reset();
+  }
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._annimationUP.style.display = "none";
+      this._annimationDown.style.display = "block";
+    } else {
+      this._annimationUP.style.display = "block";
+      this._annimationDown.style.display = "none";
+    }
   }
 }
